@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import numpy as np
+#import numpy as np
 
 def getInventory(sku, zip):
   base_url = "https://brickseek.com/walmart-inventory-checker/"
@@ -18,20 +18,22 @@ def getInventory(sku, zip):
     cells = row.find_all('div', class_="bsapi-table__cell")
     quantity_cell = cells[1]
     quantity = quantity_cell.find('span', class_="bsapi-table__cell-quantity")
-    print(quantity.get_text())
+    #print(quantity.get_text())
     number = [int(s) for s in quantity.get_text().split() if s.isdigit()]
     quantities.append(number[0])
 
-  print(quantities)
-  oos = 0
-  for quantity in quantities:
-    if quantity == 0:
-      oos+=1
-  print oos
+  #print(quantities)
+  #oos = 0
+  #for quantity in quantities:
+  #  if quantity == 0:
+  #    oos+=1
+  #print oos
   #oos percentage using len(quantities)
-  quantities = np.array(quantities)
-  print(np.mean(quantities))
-  print(np.std(quantities))
+  #quantities = np.array(quantities)
+  #print(np.mean(quantities))
+  #print(np.std(quantities))
+
+  return quantities
 
 
 getInventory(10450115,28445)
