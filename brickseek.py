@@ -36,7 +36,7 @@ def getInventory(sku, zip):
   return quantities
 
 
-getInventory(10450115,28445)
+#getInventory(10450115,28445)
 
 #TODO
 #statistics
