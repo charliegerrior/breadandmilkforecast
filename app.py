@@ -6,19 +6,21 @@ from brickseek import *
 from stats import *
 
 app = Flask(__name__, static_folder='../../public', static_url_path='')
-skus = [13033157, 145051970, 10450115]
+#skus = [13033157, 145051970, 10450115]
 
+staples = [{'name' : 'milk', 'sku' : 10450115}, {'name' : 'eggs', 'sku' : 145051970}, {'name' : 'bread', 'sku' : 13033157}]
 
-# POST route to handle a new subscription form
+# POST route to handle a new form
 @app.route("/api/query/new", methods=['POST'])
 def new_query():
   items = []
-  for sku in skus:
+  for staple in staples:
     # We'll wrap this in a try to catch any API
     # errors that may occur
     try:
-      item = getStats(getInventory(sku,request.form['zip_code']))
-      items.append(item)
+      bs_results = getStats(getInventory(staple['sku'],request.form['zip_code']))
+      bs_results['name'] = staple['name']
+      items.append(bs_results)
     except:
       print("ERROR!")
 
