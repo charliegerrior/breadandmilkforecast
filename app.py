@@ -27,4 +27,4 @@ def new_query():
   return jsonify({'results' : items}), 201
 
 if __name__ == "__main__":
-  app.run('127.0.0.1', 9001)
+  app.run('192.168.1.14', 9001)
