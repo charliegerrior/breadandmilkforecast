@@ -5,7 +5,7 @@ from flask import redirect
 from brickseek import *
 from stats import *
 
-app = Flask(__name__, static_folder='../../public', static_url_path='')
+app = Flask(__name__, static_folder='public', static_url_path='')
 #skus = [13033157, 145051970, 10450115]
 
 staples = [{'name' : 'milk', 'sku' : 10450115}, {'name' : 'eggs', 'sku' : 145051970}, {'name' : 'bread', 'sku' : 13033157}]
