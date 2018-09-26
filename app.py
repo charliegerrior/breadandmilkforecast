@@ -37,7 +37,8 @@ def new_query():
     except:
       print("ERROR!")
 
-  return jsonify(items), 201
+  #return jsonify(items), 201
+  return render_template('result.html')
 
 if __name__ == "__main__":
   app.run('0.0.0.0', 9001, debug=True)
