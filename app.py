@@ -38,7 +38,13 @@ def new_query():
       print("ERROR!")
 
   #return jsonify(items), 201
-  return render_template('result.html')
+  #print(items)
+
+  return redirect('results.html')
+
+@app.route('/results.html')
+def results():
+  return render_template('results.html')
 
 if __name__ == "__main__":
   app.run('0.0.0.0', 9001, debug=True)
