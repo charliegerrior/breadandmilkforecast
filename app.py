@@ -32,7 +32,7 @@ def new_query():
     # errors that may occur
     try:
       bs_results = getStats(getInventory(staples[selection],request.form['zip_code']))
-      bs_results["item"] = selection
+      bs_results["name"] = selection
       items.append(bs_results)
     except:
       print("ERROR!")
@@ -40,7 +40,7 @@ def new_query():
   #return jsonify(items), 201
   print(items)
 
-  return render_template('results.html')
+  return render_template('results.html', items=items)
 
 #@app.route('/results.html')
 #def results():

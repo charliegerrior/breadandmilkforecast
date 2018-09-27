@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <body>
-<p>This is the results page</p>
+<p>This is the results page</p><br>
+{% for item in items %}
+  <p>{{ item["name"] }}</p><br/>
+{% endfor %}
 </body>
 </html>
