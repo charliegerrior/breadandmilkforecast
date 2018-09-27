@@ -7,7 +7,7 @@ from stats import *
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
-staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  13033158}
+staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533}
 
 #GET route to handle '/'
 @app.route("/")
