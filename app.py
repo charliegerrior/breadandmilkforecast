@@ -15,10 +15,10 @@ def home():
   return render_template('index.html')
 
 # POST route to handle a new form
-@app.route("/api/query/new", methods=['POST'])
+@app.route("/results.html", methods=['POST'])
 def new_query():
   #print(request.form)
-  items = {}
+  items = []
   selections = []
   if 'item1' in request.form:
     selections.append(request.form['item1'])
@@ -32,19 +32,19 @@ def new_query():
     # errors that may occur
     try:
       bs_results = getStats(getInventory(staples[selection],request.form['zip_code']))
-      items[selection] = bs_results
-      #items.append(bs_results)
+      bs_results["item"] = selection
+      items.append(bs_results)
     except:
       print("ERROR!")
 
   #return jsonify(items), 201
-  #print(items)
+  print(items)
 
-  return redirect('results.html')
-
-@app.route('/results.html')
-def results():
   return render_template('results.html')
+
+#@app.route('/results.html')
+#def results():
+#  return render_template('results.html')
 
 if __name__ == "__main__":
   app.run('0.0.0.0', 9001, debug=True)
