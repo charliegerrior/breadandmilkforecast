@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
-<body>
-<table>
-  <tr>
-    <th>item</th>
-    <th>avg. inventory</th>
-    <th>% of stores out-of-stock</th>
-  </tr>
-{% for item in items %}
-  <tr>
-    <td>{{ item["name"] }}</td>
-    <td>{{ item["mean"] }}</td>
-    <td>{{ item["percent"] }}</td>
-  </tr>
-{% endfor %}
-</body>
+  <head>
+    <title>results</title>
+    <link href="/style.css" rel="stylesheet">
+  </head>
+  <body>
+  <table class="center">
+    <tr>
+      <th>item</th>
+      <th>avg. inventory</th>
+      <th>% of stores out-of-stock</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+      <td>{{ item["name"] }}</td>
+      <td>{{ item["mean"] }}</td>
+      <td>{{ item["percent"] }}</td>
+    </tr>
+    {% endfor %}
+  </body>
 </html>
