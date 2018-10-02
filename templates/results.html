@@ -5,18 +5,19 @@
     <link href="/style.css" rel="stylesheet">
   </head>
   <body>
-  <table class="center">
-    <tr>
-      <th>item</th>
-      <th>avg. inventory</th>
-      <th>% of stores out-of-stock</th>
-    </tr>
-    {% for item in items %}
+    <table class="center">
+      <tr>
+        <th>item</th>
+        <th>avg. inventory</th>
+        <th>% of stores out-of-stock</th>
+      </tr>
+      {% for item in items %}
       <tr class="{{ 'warning' if item["percent"] > 0}}">
         <td>{{ item["name"] }}</td>
         <td>{{ item["mean"] }}</td>
         <td>{{ item["percent"] }}</td>
       </tr>
-    {% endfor %}
+      {% endfor %}
+    </table>
   </body>
 </html>
