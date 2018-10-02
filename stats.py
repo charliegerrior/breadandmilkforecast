@@ -13,6 +13,6 @@ def getStats(quantities):
 
   oos_pct = oos/len(quantities) * 100
 
-  item = { 'stores' : len(quantities), 'oos' : oos, 'mean' : "%d" % round(mean), 'percent' : "%d" % round(oos_pct) }
+  item = { 'stores' : len(quantities), 'oos' : oos, 'mean' : "%d" % round(mean), 'percent' : round(oos_pct) }
 
   return item

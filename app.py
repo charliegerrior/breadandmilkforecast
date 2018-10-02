@@ -39,6 +39,7 @@ def new_query():
       except:
         print("ERROR!")
 
+    print(items)
     return render_template('results.html', items=items)
 
   else:

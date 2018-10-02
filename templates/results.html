@@ -12,11 +12,11 @@
       <th>% of stores out-of-stock</th>
     </tr>
     {% for item in items %}
-    <tr>
-      <td>{{ item["name"] }}</td>
-      <td>{{ item["mean"] }}</td>
-      <td>{{ item["percent"] }}</td>
-    </tr>
+      <tr class="{{ 'warning' if item["percent"] > 0}}">
+        <td>{{ item["name"] }}</td>
+        <td>{{ item["mean"] }}</td>
+        <td>{{ item["percent"] }}</td>
+      </tr>
     {% endfor %}
   </body>
 </html>
