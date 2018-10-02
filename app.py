@@ -19,16 +19,16 @@ def home():
 @app.route("/results.html", methods=['POST'])
 def new_query():
   matchObj = re.match(r'^[0-9]{5}$', request.form['zip_code'])
+  selections = []
+  if 'item1' in request.form:
+    selections.append(request.form['item1'])
+  if 'item2' in request.form:
+    selections.append(request.form['item2'])
+  if 'item3' in request.form:
+    selections.append(request.form['item3'])
 
-  if matchObj:
+  if matchObj and len(selections) > 0:
     items = []
-    selections = []
-    if 'item1' in request.form:
-      selections.append(request.form['item1'])
-    if 'item2' in request.form:
-      selections.append(request.form['item2'])
-    if 'item3' in request.form:
-      selections.append(request.form['item3'])
     for selection in selections:
       # We'll wrap this in a try to catch any API
       # errors that may occur
