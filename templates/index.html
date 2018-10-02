@@ -4,17 +4,20 @@
     <title>just how bad is it?</title>
     <link href="/style.css" rel="stylesheet">
     <script type="text/javascript">
-      function IsValidZipCode(zip) {
-        var isValid = /^[0-9]{5}$/.test(zip);
-          if (!isValid) {
-            alert('try a US-style 5-digit zip code');
-            return false;
-          } else {
+      function IsValidForm(form) {
+        var isValidZip = /^[0-9]{5}$/.test(form.zip_code.value);
+        if (!isValidZip) {
+          alert('try a US-style 5-digit zip code');
+          return false;
+        } else if (!form.item1.checked && !form.item2.checked && !form.item3.checked) {
+            alert('you must choose at least one item');
+            return false; 
+        } else {
             return true;
-          }    
+        }
       }
     </script>
-  </head>
+  </head>  
   <body>
     <div class="text">
       <form action="/results.html" method="post">
@@ -22,7 +25,7 @@
         <input type="checkbox" name="item1" value="bread" checked>bread
         <input type="checkbox" name="item2" value="eggs" checked>eggs
         <input type="checkbox" name="item3" value="milk" checked>milk<br>
-        <input type="submit" value="submit" onclick="return IsValidZipCode(this.form.zip_code.value);">
+        <input type="submit" value="submit" onclick="return IsValidForm(this.form);">
       </form>
       <a href="/legal.html">legal notice</a>
     </div>
