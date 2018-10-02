@@ -1,10 +1,5 @@
-from __future__ import division
-import numpy as np
-
 def getStats(quantities):
-  np_quantities = np.array(quantities)
-  mean = np.mean(np_quantities)
-  #std = np.std(np_quantities)
+  mean = sum(quantities)/len(quantities)
 
   oos = 0
   for quantity in quantities:
