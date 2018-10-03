@@ -50,4 +50,4 @@ def new_query():
 #  return render_template('results.html')
 
 if __name__ == "__main__":
-  app.run('0.0.0.0', 80, debug=False)
+  app.run('0.0.0.0', 9001, debug=True)
