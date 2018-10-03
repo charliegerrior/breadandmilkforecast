@@ -39,15 +39,10 @@ def new_query():
       except:
         print("ERROR!")
 
-    #print(items)
     return render_template('results.html', items=items)
 
   else:
    return render_template('error.html')
-
-#@app.route('/results.html')
-#def results():
-#  return render_template('results.html')
 
 if __name__ == "__main__":
   app.run('0.0.0.0', 9001, debug=True)
