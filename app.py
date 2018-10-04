@@ -15,6 +15,11 @@ staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533}
 def home():
   return render_template('index.html')
 
+#GET route to handle '/legal.html'
+@app.route("/legal.html")
+def legal():
+  return render_template('legal.html')
+
 # POST route to handle a new form
 @app.route("/results.html", methods=['POST'])
 def new_query():
