@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>results</title>
-    <link href="/style.css" rel="stylesheet">
-  </head>
-  <body>
+{% extends 'base.html' %}
+{% block content %}
     <table class="center">
       <tr>
         <th>item</th>
@@ -19,5 +14,4 @@
       </tr>
       {% endfor %}
     </table>
-  </body>
-</html>
+{% endblock %}
