@@ -9,6 +9,6 @@ def getStats(dict):
 
   oos_pct = oos/len(quantities) * 100
 
-  item = { 'mean' : round(mean), 'percent' : round(oos_pct) }
+  item = { 'mean' : '%d' % round(mean), 'percent' : '%d' % round(oos_pct), 'distance' : dict['distance'] }
 
   return item
