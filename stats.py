@@ -1,4 +1,5 @@
-def getStats(quantities):
+def getStats(dict):
+  quantities = dict['quantities']
   mean = sum(quantities)/len(quantities)
 
   oos = 0
