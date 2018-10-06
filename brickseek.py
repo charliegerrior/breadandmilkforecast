@@ -15,16 +15,20 @@ def getInventory(sku, zip):
   table = soup.find('div', class_="bsapi-table")
   rows = table.find_all('div', class_="bsapi-table__row")
   quantities = []
-  for row in rows:
-    #print(row)
-    address = row.find_all('address', class_="bsapi-address")[0]
-    distanceMatch = re.search(r'(\d+).?(\d*)\s*(Miles)', address.get_text(), flags=0)
-    if distanceMatch:
-      print(distanceMatch.group())
-    #print(address)
+  for row in rows[:-1]:
     quantity_cell = row.find_all('div', class_="bsapi-table__cell")[1]
     quantity = quantity_cell.find('span', class_="bsapi-table__cell-quantity")
     number = [int(s) for s in quantity.get_text().split() if s.isdigit()]
     quantities.append(number[0])
+  else:
+    address = rows[-1].find_all('address', class_="bsapi-address")[0]
+    distanceMatch = re.search(r'(\d+).?(\d*)\s*(Miles)', address.get_text(), flags=0)
+    if distanceMatch:
+      distance = distanceMatch.group()
+    quantity_cell = rows[-1].find_all('div', class_="bsapi-table__cell")[1]
+    quantity = quantity_cell.find('span', class_="bsapi-table__cell-quantity")
+    number = [int(s) for s in quantity.get_text().split() if s.isdigit()]
+    quantities.append(number[0])
 
-  return quantities
+  dict = { 'distance' : distance, 'quantities' : quantities}
+  return dict
