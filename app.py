@@ -20,6 +20,11 @@ def home():
 def legal():
   return render_template('legal.html')
 
+#GET route to handle '/about.html'
+@app.route("/about.html")
+def about():
+  return render_template('about.html')
+
 # POST route to handle a new form
 @app.route("/results.html", methods=['POST'])
 def new_query():
