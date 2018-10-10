@@ -6,8 +6,7 @@ def getStats(dict):
   for quantity in quantities:
     if quantity == 0:
       oos+=1
-
-  oos_pct = oos/len(quantities) * 100
+  oos_pct = (oos/len(quantities)) * 100
 
   item = { 'mean' : int(round(mean)), 'percent' : int(round(oos_pct)), 'distance' : dict['distance'] }
 
