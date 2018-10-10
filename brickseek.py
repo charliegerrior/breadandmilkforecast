@@ -22,7 +22,8 @@ def getInventory(sku, zip):
     quantities.append(number[0])
   else:
     address = rows[-1].find_all('address', class_="bsapi-address")[0]
-    distanceMatch = re.search(r'(\d+).?(\d*)\s*(Miles)', address.get_text(), flags=0)
+    distanceString = re.search(r'\((.*?)\)', address.get_text(), flags=0)
+    distanceMatch = re.search(r'(\d+).?(\d*)\s*(Miles)', distanceString.group(), flags=0)
     if distanceMatch:
       distance = distanceMatch.group()
     quantity_cell = rows[-1].find_all('div', class_="bsapi-table__cell")[1]
