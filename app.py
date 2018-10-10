@@ -8,7 +8,7 @@ import re
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
-staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533}
+staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533, 'toilet paper' : 549419637}
 
 #GET route to handle '/'
 @app.route("/")
@@ -36,6 +36,8 @@ def new_query():
     selections.append(request.form['item2'])
   if 'item3' in request.form:
     selections.append(request.form['item3'])
+  if 'item4' in request.form:
+    selections.append(request.form['item4'])
 
   if matchObj and len(selections) > 0:
     items = []
