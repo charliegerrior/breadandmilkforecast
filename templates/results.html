@@ -12,7 +12,7 @@
         <td>{{ item["name"] }}</td>
         <td>{{ item["mean"] }}</td>
         <td>{{ item["percent"] }}</td>
-        <td>{{ item["distance"] }}</td>
+        <td>{{ "%d miles" % item["distance"] }}</td>
       </tr>
       {% endfor %}
     </table>
