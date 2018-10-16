@@ -5,13 +5,14 @@ from stats import *
 import re
 
 from app import app
-
-staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533, 'toilet paper' : 549419637}
+from app.forms import QueryForm
+staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'toilet paper' : 549419637}
 
 #GET route to handle '/'
 @app.route("/")
 def home():
-  return render_template('index.html')
+  form = QueryForm()
+  return render_template('index.html', form=form)
 
 #GET route to handle '/legal.html'
 @app.route("/legal.html")
