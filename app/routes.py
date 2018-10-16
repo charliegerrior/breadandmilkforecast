@@ -5,7 +5,7 @@
 #from brickseek import *
 #from stats import *
 #import re
-
+from flask import render_template
 from app import app
 
 #app = Flask(__name__, static_folder='public', static_url_path='')
