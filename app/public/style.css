@@ -1,0 +1,21 @@
+* {
+  text-align: center;
+}
+
+table.center {
+  margin-left:auto;
+  margin-right:auto;
+}
+
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+tr.warning {
+  color: red;
+}
