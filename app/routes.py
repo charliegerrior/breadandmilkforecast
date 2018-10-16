@@ -6,7 +6,7 @@ import re
 
 from app import app
 from app.forms import QueryForm
-staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'toilet paper' : 549419637}
+staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
 #GET route to handle '/'
 @app.route("/")
@@ -29,14 +29,14 @@ def about():
 def new_query():
   matchObj = re.match(r'^[0-9]{5}$', request.form['zip_code'])
   selections = []
-  if 'item1' in request.form:
-    selections.append(request.form['item1'])
-  if 'item2' in request.form:
-    selections.append(request.form['item2'])
-  if 'item3' in request.form:
-    selections.append(request.form['item3'])
-  if 'item4' in request.form:
-    selections.append(request.form['item4'])
+  if 'bread' in request.form:
+    selections.append('bread')
+  if 'eggs' in request.form:
+    selections.append('eggs')
+  if 'milk' in request.form:
+    selections.append('milk')
+  if 'tp' in request.form:
+    selections.append('tp')
 
   if matchObj and len(selections) > 0:
     items = []
