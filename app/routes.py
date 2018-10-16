@@ -1,12 +1,10 @@
 # Import Flask and brickseek library
-from flask import Flask, jsonify, render_template
-from flask import request
-from flask import redirect
+from flask import render_template, request, redirect
 from brickseek import *
 from stats import *
 import re
 
-app = Flask(__name__, static_folder='public', static_url_path='')
+from app import app
 
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' :  120099533, 'toilet paper' : 549419637}
 
