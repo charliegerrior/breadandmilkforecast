@@ -6,7 +6,7 @@
         if (!isValidZip) {
           alert('try a US-style 5-digit zip code');
           return false;
-        } else if (!form.item1.checked && !form.item2.checked && !form.item3.checked && !form.item4.checked) {
+        } else if (!form.bread.checked && !form.eggs.checked && !form.milk.checked && !form.tp.checked) {
             alert('you must choose at least one item');
             return false; 
         } else {
@@ -25,7 +25,7 @@
         {{ form.eggs() }} {{ form.eggs.label }}
         {{ form.milk() }} {{ form.milk.label }}
         {{ form.tp() }} {{ form.tp.label }} <br>
-        {{ form.submit() }}
+        {{ form.submit(onclick="return IsValidForm(this.form);") }}
       </form>
     </div>
 {% endblock %}

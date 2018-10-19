@@ -3,7 +3,7 @@ from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 class QueryForm(FlaskForm):
-    zip_code = StringField('zip code', validators.length(max=5))
+    zip_code = StringField('zip code')
     bread = BooleanField('bread', default="checked")
     eggs = BooleanField('eggs')
     milk = BooleanField('milk', default="checked")
