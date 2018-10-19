@@ -13,4 +13,4 @@ class QueryForm(FlaskForm):
 class SmsForm(FlaskForm):
   name = StringField('your name')
   number = StringField('cell phone number')
-  submit = SubmitField('submit')
+  submit = SubmitField('sign up')

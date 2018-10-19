@@ -61,4 +61,5 @@ def forecast():
 # POST route to handle a new sign up form
 @app.route("/signup.html", methods=['POST'])
 def new_signup():
-  return  render_template('signup.html')
+  user = { 'name': request.form['name'], 'number': request.form['number'] }
+  return  render_template('signup.html', user=user)
