@@ -5,9 +5,15 @@ from stats import *
 from sms import *
 import re
 
+<<<<<<< HEAD
 from app import app, db
 from app.models import User
 from app.forms import QueryForm, RegistrationForm
+=======
+from app import app
+from app.forms import QueryForm
+from app.forms import SmsForm
+>>>>>>> adds form for txt signup and receives input
 
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
@@ -53,13 +59,19 @@ def forecast():
         items.append(bs_results)
       except:
         print("ERROR!")
+<<<<<<< HEAD
     form = RegistrationForm(region=region)
     return render_template('forecast.html', items=items, form=form)
+=======
+    form = SmsForm()
+    return render_template('results.html', items=items, form=form)
+>>>>>>> adds form for txt signup and receives input
 
   else:
    return render_template('error.html')
 
 # POST route to handle a new sign up form
+<<<<<<< HEAD
 @app.route("/signup", methods=['POST'])
 def signup():
   form = request.form
@@ -72,3 +84,8 @@ def signup():
   sendWelcome(user)
   return render_template('signup.html', user=user)
   #return redirect(url_for('login'))
+=======
+@app.route("/signup.html", methods=['POST'])
+def new_signup():
+  return  render_template('signup.html')
+>>>>>>> adds form for txt signup and receives input
