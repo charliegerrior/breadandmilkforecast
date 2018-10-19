@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+  <p>hi {{ request.form.name }}!</p>
+  <p>thanks for registering with #: {{ request.form.number }}</p>
+{% endblock %}

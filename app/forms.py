@@ -9,3 +9,8 @@ class QueryForm(FlaskForm):
     milk = BooleanField('milk', default="checked")
     tp = BooleanField('toilet paper')
     submit = SubmitField('submit')
+
+class SmsForm(FlaskForm):
+  name = StringField('your name')
+  number = StringField('cell phone number')
+  submit = SubmitField('submit')

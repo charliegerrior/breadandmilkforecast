@@ -6,6 +6,8 @@ import re
 
 from app import app
 from app.forms import QueryForm
+from app.forms import SmsForm
+
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
 #GET route to handle '/'
@@ -50,7 +52,13 @@ def forecast():
       except:
         print("ERROR!")
 
-    return render_template('forecast.html', items=items)
+    form = SmsForm()
+    return render_template('forecast.html', items=items, form=form)
 
   else:
    return render_template('error.html')
+
+# POST route to handle a new sign up form
+@app.route("/signup.html", methods=['POST'])
+def new_signup():
+  return  render_template('signup.html')
