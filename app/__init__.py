@@ -1,5 +1,7 @@
 from flask import Flask
 from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -7,8 +9,10 @@ import os
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-from app import routes, errors
+from app import routes, errors, models
 
 if not app.debug:
   if not os.path.exists('logs'):
