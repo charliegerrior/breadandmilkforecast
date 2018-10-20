@@ -4,9 +4,9 @@ from brickseek import *
 from stats import *
 import re
 
-from app import app
-from app.forms import QueryForm
-from app.forms import RegistrationForm
+from app import app, db
+from app.models import User
+from app.forms import QueryForm, RegistrationForm
 
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
@@ -61,12 +61,12 @@ def forecast():
 # POST route to handle a new sign up form
 @app.route("/signup.html", methods=['POST'])
 def register():
-  user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
-  return  render_template('signup.html', user=user)
+  form = request.form
+  #if form.validate_on_submit():
+  user = User(name=form['name'], number=form['number'], region=form['region'])
+  db.session.add(user)
+  db.session.commit()
 
-#if form.validate_on_submit():
-#        user = User(name=form.name.data, number=form.number.data, region=)
-#        db.session.add(user)
-#        db.session.commit()
-#        flash('Congratulations, you are now a registered user!')
-#        return redirect(url_for('login'))
+  user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
+  return render_template('signup.html', user=user)
+  #return redirect(url_for('login'))
