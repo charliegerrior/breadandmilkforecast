@@ -6,7 +6,7 @@ import re
 
 from app import app
 from app.forms import QueryForm
-from app.forms import SmsForm
+from app.forms import RegistrationForm
 
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
@@ -42,6 +42,7 @@ def forecast():
 
   if matchObj and len(selections) > 0:
     items = []
+    region = request.form['zip_code']
     for selection in selections:
       # We'll wrap this in a try to catch any API
       # errors that may occur
@@ -51,8 +52,7 @@ def forecast():
         items.append(bs_results)
       except:
         print("ERROR!")
-
-    form = SmsForm()
+    form = RegistrationForm(region=region)
     return render_template('forecast.html', items=items, form=form)
 
   else:
@@ -60,6 +60,13 @@ def forecast():
 
 # POST route to handle a new sign up form
 @app.route("/signup.html", methods=['POST'])
-def new_signup():
-  user = { 'name': request.form['name'], 'number': request.form['number'] }
+def register():
+  user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
   return  render_template('signup.html', user=user)
+
+#if form.validate_on_submit():
+#        user = User(name=form.name.data, number=form.number.data, region=)
+#        db.session.add(user)
+#        db.session.commit()
+#        flash('Congratulations, you are now a registered user!')
+#        return redirect(url_for('login'))

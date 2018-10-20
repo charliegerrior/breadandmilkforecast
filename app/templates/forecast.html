@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table class="center">
+    <table id="results" class="center">
       <tr>
         <th>item</th>
         <th>avg. inventory</th>
@@ -16,17 +16,20 @@
       </tr>
       {% endfor %}
     </table>
-    <h2>get text alerts for this area</h2>
-    <form action="/signup.html" method="post" novalidate>
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.name.label }}<br>
-        {{ form.name(size=32) }}
-      </p>
-      <p>
-        {{ form.number.label }}<br>
-        {{ form.number(size=32) }}
-      </p>
-      <p>{{ form.submit() }}</p>
-    </form>
+    <div id="sms">
+      <h2>get text alerts for this area</h2>
+      <form action="/signup.html" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.region() }}
+        <p>
+          {{ form.name.label }}<br>
+          {{ form.name(size=32) }}
+        </p>
+        <p>
+          {{ form.number.label }}<br>
+          {{ form.number(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+      </form>
+    </div>
 {% endblock %}
