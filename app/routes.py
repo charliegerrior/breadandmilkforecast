@@ -2,6 +2,7 @@
 from flask import render_template, request, redirect
 from brickseek import *
 from stats import *
+from sms import *
 import re
 
 from app import app, db
@@ -68,5 +69,6 @@ def register():
   db.session.commit()
 
   user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
+  sendWelcome(user)
   return render_template('signup.html', user=user)
   #return redirect(url_for('login'))
