@@ -17,7 +17,7 @@
       {% endfor %}
     </table>
     <div id="sms">
-      <h2>get text alerts for this area</h2>
+      <h2>get text alerts for this area*</h2>
       <form action="/signup.html" method="post" novalidate>
         {{ form.hidden_tag() }}
         {{ form.region() }}
@@ -31,5 +31,6 @@
         </p>
         <p>{{ form.submit() }}</p>
       </form>
+      <p>*message and data rates may apply.</p>
     </div>
 {% endblock %}
