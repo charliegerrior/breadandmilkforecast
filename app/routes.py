@@ -60,8 +60,8 @@ def forecast():
    return render_template('error.html')
 
 # POST route to handle a new sign up form
-@app.route("/signup.html", methods=['POST'])
-def register():
+@app.route("/signup", methods=['POST'])
+def signup():
   form = request.form
   #if form.validate_on_submit():
   user = User(name=form['name'], number=form['number'], region=form['region'])
