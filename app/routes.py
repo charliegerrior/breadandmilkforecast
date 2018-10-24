@@ -27,7 +27,7 @@ def legal():
 def about():
   return render_template('about.html')
 
-# POST route to handle a new form
+# GET route to handle a new form
 @app.route("/forecast", methods=['GET'])
 def forecast():
   matchObj = re.match(r'^[0-9]{5}$', request.args['zip_code'])
@@ -43,7 +43,7 @@ def forecast():
 
   if matchObj and len(selections) > 0:
     items = []
-    region = request.form['zip_code']
+    region = request.args['zip_code']
     for selection in selections:
       # We'll wrap this in a try to catch any API
       # errors that may occur
