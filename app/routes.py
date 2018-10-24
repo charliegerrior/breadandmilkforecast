@@ -14,19 +14,19 @@ def home():
   form = QueryForm()
   return render_template('index.html', form=form)
 
-#GET route to handle '/legal.html'
-@app.route("/legal.html")
+#GET route to handle '/legal'
+@app.route("/legal")
 def legal():
   return render_template('legal.html')
 
-#GET route to handle '/about.html'
-@app.route("/about.html")
+#GET route to handle '/about'
+@app.route("/about")
 def about():
   return render_template('about.html')
 
 # POST route to handle a new form
-@app.route("/results.html", methods=['POST'])
-def new_query():
+@app.route("/results", methods=['POST'])
+def results():
   matchObj = re.match(r'^[0-9]{5}$', request.form['zip_code'])
   selections = []
   if 'bread' in request.form:
