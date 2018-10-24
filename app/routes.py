@@ -25,17 +25,17 @@ def about():
   return render_template('about.html')
 
 # POST route to handle a new form
-@app.route("/results", methods=['POST'])
+@app.route("/results", methods=['GET'])
 def results():
-  matchObj = re.match(r'^[0-9]{5}$', request.form['zip_code'])
+  matchObj = re.match(r'^[0-9]{5}$', request.args['zip_code'])
   selections = []
-  if 'bread' in request.form:
+  if 'bread' in request.args:
     selections.append('bread')
-  if 'eggs' in request.form:
+  if 'eggs' in request.args:
     selections.append('eggs')
-  if 'milk' in request.form:
+  if 'milk' in request.args:
     selections.append('milk')
-  if 'tp' in request.form:
+  if 'tp' in request.args:
     selections.append('tp')
 
   if matchObj and len(selections) > 0:
@@ -44,7 +44,7 @@ def results():
       # We'll wrap this in a try to catch any API
       # errors that may occur
       try:
-        bs_results = getStats(getInventory(staples[selection],request.form['zip_code']))
+        bs_results = getStats(getInventory(staples[selection],request.args['zip_code']))
         bs_results["name"] = selection
         items.append(bs_results)
       except:
