@@ -18,7 +18,7 @@
 {% block content %}
     <div class="text">
       <p>enter your zip code and make your selections below</p>
-      <form action="/results" novalidate>
+      <form action="forecast" novalidate>
         {{ form.zip_code(maxlength=5, size=10, placeholder="zip code") }} <br>
         {{ form.bread() }} {{ form.bread.label }}
         {{ form.eggs() }} {{ form.eggs.label }}

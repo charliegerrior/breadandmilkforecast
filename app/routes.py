@@ -25,8 +25,8 @@ def about():
   return render_template('about.html')
 
 # POST route to handle a new form
-@app.route("/results", methods=['GET'])
-def results():
+@app.route("/forecast", methods=['GET'])
+def forecast():
   matchObj = re.match(r'^[0-9]{5}$', request.args['zip_code'])
   selections = []
   if 'bread' in request.args:
@@ -50,7 +50,7 @@ def results():
       except:
         print("ERROR!")
 
-    return render_template('results.html', items=items)
+    return render_template('forecast.html', items=items)
 
   else:
    return render_template('error.html')
