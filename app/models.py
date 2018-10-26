@@ -12,14 +12,14 @@ class User(db.Model):
 class Forecast(db.Model):
   region = db.Column(db.String(5), primary_key=True)
   timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-  #eggs
-  eggs_inv = db.Column(db.Integer, unique=False)
-  eggs_stores  = db.Column(db.Integer, unique=False)
-  eggs_distance = db.Column(db.Integer, unique=False)
   #bread
   bread_inv = db.Column(db.Integer, unique=False)
   bread_stores  = db.Column(db.Integer, unique=False)
   bread_distance = db.Column(db.Integer, unique=False)
+  #eggs
+  eggs_inv = db.Column(db.Integer, unique=False)
+  eggs_stores  = db.Column(db.Integer, unique=False)
+  eggs_distance = db.Column(db.Integer, unique=False)
   #milk
   milk_inv = db.Column(db.Integer, unique=False)
   milk_stores  = db.Column(db.Integer, unique=False)

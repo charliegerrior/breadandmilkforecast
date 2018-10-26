@@ -2,7 +2,7 @@
 from flask import render_template, request, redirect
 from forecast import *
 from sms import *
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 
 from app import app, db
@@ -44,10 +44,10 @@ def forecast():
   if matchObj and len(selections) > 0:
     items = []
     region = request.args['zip_code']
-    forecast = Forecast.query.filter_by(region=region).first()
-    if forecast is None or datetime.utcnow() - forecast.timestamp > datetime.timedelta(seconds=1800):
+    db_forecast = Forecast.query.filter_by(region=region).first()
+    if db_forecast is None or datetime.utcnow() - db_forecast.timestamp > timedelta(seconds=1800):
       #run new query
-      print('no forecast in database')
+      print('no recent forecast in database')
       # We'll wrap this in a try to catch any API
       # errors that may occur
       try:
@@ -61,9 +61,9 @@ def forecast():
     else:
       #retrieve from DB
       print('retrieving forecast from DB')
-
+      forecast = { 'region' : region, 'bread' : { 'mean' : db_forecast.bread_inv, 'percent' : db_forecast.bread_stores, 'distance' : db_forecast.bread_distance }, 'eggs' : { 'mean' : db_forecast.eggs_inv, 'percent' : db_forecast.eggs_stores, 'distance' : db_forecast.eggs_distance }, 'milk' : { 'mean' : db_forecast.milk_inv, 'percent' : db_forecast.milk_stores, 'distance' : db_forecast.milk_distance }, 'tp' : { 'mean' : db_forecast.tp_inv, 'percent' : db_forecast.tp_stores, 'distance' : db_forecast.tp_distance } }
     form = RegistrationForm(region=region)
-    return render_template('forecast.html', forecast=forecast, selections = selections, form=form)
+    return render_template('forecast.html', forecast=forecast, selections=selections, form=form)
 
   else:
    return render_template('error.html')
