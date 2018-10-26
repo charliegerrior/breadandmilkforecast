@@ -17,7 +17,7 @@
     <section class="footer">
       {% if request.path == "/" %}
         <a href="{{ url_for('about') }}">about</a> | <a href="{{ url_for('legal') }}">legal notice</a>
-      {% elif request.path == "/forecast" %}
+      {% elif request.path == "/forecast" or request.path == "/signup" %}
         <a href="{{ url_for('about') }}">about</a> | <a href="{{ url_for('legal') }}">legal notice</a> | <a href="/">home</a>
       {% elif request.path !="/about" %}
         <a href="{{ url_for('about') }}">about</a> | <a href="/">home</a>
