@@ -54,9 +54,13 @@ def forecast():
         forecast = getForecast(region)
       except:
         print("ERROR!")
+      #write forecast to DB
+      db_forecast = Forecast(region = region, eggs_inv = forecast["eggs"]["mean"], eggs_stores = forecast["eggs"]["percent"], eggs_distance = forecast["eggs"]["distance"], bread_inv = forecast["bread"]["mean"], bread_stores = forecast["bread"]["percent"], bread_distance = forecast["bread"]["distance"], milk_inv = forecast["milk"]["mean"], milk_stores = forecast["milk"]["percent"], milk_distance = forecast["milk"]["distance"], tp_inv = forecast["tp"]["mean"], tp_stores = forecast["tp"]["percent"], tp_distance = forecast["tp"]["distance"])
+      db.session.add(db_forecast)
+      db.session.commit()
     else:
       #retrieve from DB
-      print('retrieving forecast')
+      print('retrieving forecast from DB')
 
     form = RegistrationForm(region=region)
     return render_template('forecast.html', forecast=forecast, selections = selections, form=form)
