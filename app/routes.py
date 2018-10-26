@@ -1,7 +1,6 @@
 # Import Flask and brickseek library
 from flask import render_template, request, redirect
-from brickseek import *
-from stats import *
+from forecast import *
 from sms import *
 from datetime import datetime
 import re
@@ -49,21 +48,18 @@ def forecast():
     if forecast is None or datetime.utcnow() - forecast.timestamp > datetime.timedelta(seconds=1800):
       #run new query
       print('no forecast in database')
-      for selection in selections:
-        # We'll wrap this in a try to catch any API
-        # errors that may occur
-        try:
-          bs_results = getStats(getInventory(staples[selection],request.args['zip_code']))
-          bs_results["name"] = selection
-          items.append(bs_results)
-        except:
-          print("ERROR!")
+      # We'll wrap this in a try to catch any API
+      # errors that may occur
+      try:
+        forecast = getForecast(region)
+      except:
+        print("ERROR!")
     else:
       #retrieve from DB
       print('retrieving forecast')
 
     form = RegistrationForm(region=region)
-    return render_template('forecast.html', items=items, form=form)
+    return render_template('forecast.html', forecast=forecast, selections = selections, form=form)
 
   else:
    return render_template('error.html')

@@ -7,12 +7,12 @@
         <th>% of stores out-of-stock</th>
         <th>within</th>
       </tr>
-      {% for item in items %}
-      <tr class="{{ 'warning' if item["percent"] > 0}}">
-        <td>{{ item["name"] }}</td>
-        <td>{{ item["mean"] }}</td>
-        <td>{{ item["percent"] }}</td>
-        <td>{{ "%d miles" % item["distance"] }}</td>
+      {% for item in selections %}
+      <tr class="{{ 'warning' if forecast[item]["percent"] > 0}}">
+        <td>{{ item }}</td>
+        <td>{{ forecast[item]["mean"] }}</td>
+        <td>{{ forecast[item]["percent"] }}</td>
+        <td>{{ "%d miles" % forecast[item]["distance"] }}</td>
       </tr>
       {% endfor %}
     </table>

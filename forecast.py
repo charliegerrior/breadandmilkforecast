@@ -2,9 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-#bread SKU: 13033157
-#eggs SKU: 145051970
-#milk SKU: 10450115
+staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
 def getInventory(sku, zip):
   base_url = "https://brickseek.com/walmart-inventory-checker/"
@@ -33,3 +31,23 @@ def getInventory(sku, zip):
 
   dict = { 'distance' : distance, 'quantities' : quantities}
   return dict
+
+def getStats(dict):
+  quantities = dict['quantities']
+  mean = sum(quantities)/len(quantities)
+
+  oos = 0
+  for quantity in quantities:
+    if quantity == 0:
+      oos+=1
+  oos_pct = (oos/len(quantities)) * 100
+
+  item = { 'mean' : int(round(mean)), 'percent' : int(round(oos_pct)), 'distance' : round(float(dict['distance'])) }
+
+  return item
+
+def getForecast(region):
+
+  forecast = { 'region' : region, 'bread' : getStats(getInventory(staples['bread'],region)), 'eggs' : getStats(getInventory(staples['eggs'],region)), 'milk' : getStats(getInventory(staples['milk'],region)), 'tp' : getStats(getInventory(staples['tp'],region)) }
+
+  return forecast
