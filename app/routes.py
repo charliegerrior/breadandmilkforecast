@@ -55,7 +55,7 @@ def forecast():
       except:
         print("ERROR!")
       #write forecast to DB
-      db_forecast = Forecast(region = region, eggs_inv = forecast["eggs"]["mean"], eggs_stores = forecast["eggs"]["percent"], eggs_distance = forecast["eggs"]["distance"], bread_inv = forecast["bread"]["mean"], bread_stores = forecast["bread"]["percent"], bread_distance = forecast["bread"]["distance"], milk_inv = forecast["milk"]["mean"], milk_stores = forecast["milk"]["percent"], milk_distance = forecast["milk"]["distance"], tp_inv = forecast["tp"]["mean"], tp_stores = forecast["tp"]["percent"], tp_distance = forecast["tp"]["distance"])
+      db_forecast = Forecast(region = region, bread_mean = forecast["bread"]["mean"], bread_percent = forecast["bread"]["percent"], bread_distance = forecast["bread"]["distance"], eggs_mean = forecast["eggs"]["mean"], eggs_percent = forecast["eggs"]["percent"], eggs_distance = forecast["eggs"]["distance"], milk_mean = forecast["milk"]["mean"], milk_percent = forecast["milk"]["percent"], milk_distance = forecast["milk"]["distance"], tp_mean = forecast["tp"]["mean"], tp_percent = forecast["tp"]["percent"], tp_distance = forecast["tp"]["distance"])
       db.session.add(db_forecast)
       db.session.commit()
     elif datetime.utcnow() - db_forecast.timestamp > timedelta(seconds=1800):
@@ -65,23 +65,23 @@ def forecast():
         print("ERROR!") 
       #update existing forecast
       db_forecast.timestamp = datetime.utcnow()
-      db_forecast.eggs_inv = forecast["eggs"]["mean"]
-      db_forecast.eggs_stores = forecast["eggs"]["percent"]
+      db_forecast.eggs_mean = forecast["eggs"]["mean"]
+      db_forecast.eggs_percent = forecast["eggs"]["percent"]
       db_forecast.eggs_distance = forecast["eggs"]["distance"]
-      db_forecast.bread_inv = forecast["bread"]["mean"]
-      db_forecast.bread_stores = forecast["bread"]["percent"]
+      db_forecast.bread_mean = forecast["bread"]["mean"]
+      db_forecast.bread_percent = forecast["bread"]["percent"]
       db_forecast.bread_distance = forecast["bread"]["distance"]
-      db_forecast.milk_inv = forecast["milk"]["mean"]
-      db_forecast.milk_stores = forecast["milk"]["percent"]
+      db_forecast.milk_mean = forecast["milk"]["mean"]
+      db_forecast.milk_percent = forecast["milk"]["percent"]
       db_forecast.milk_distance = forecast["milk"]["distance"]
-      db_forecast.tp_inv = forecast["tp"]["mean"]
-      db_forecast.tp_stores = forecast["tp"]["percent"]
+      db_forecast.tp_mean = forecast["tp"]["mean"]
+      db_forecast.tp_percent = forecast["tp"]["percent"]
       db_forecast.tp_distance = forecast["tp"]["distance"]
       db.session.commit()
     else:
       #retrieve from DB
       print('retrieving forecast from DB')
-      forecast = { 'region' : region, 'bread' : { 'mean' : db_forecast.bread_inv, 'percent' : db_forecast.bread_stores, 'distance' : db_forecast.bread_distance }, 'eggs' : { 'mean' : db_forecast.eggs_inv, 'percent' : db_forecast.eggs_stores, 'distance' : db_forecast.eggs_distance }, 'milk' : { 'mean' : db_forecast.milk_inv, 'percent' : db_forecast.milk_stores, 'distance' : db_forecast.milk_distance }, 'tp' : { 'mean' : db_forecast.tp_inv, 'percent' : db_forecast.tp_stores, 'distance' : db_forecast.tp_distance } }
+      forecast = { 'region' : region, 'bread' : { 'mean' : db_forecast.bread_mean, 'percent' : db_forecast.bread_percent, 'distance' : db_forecast.bread_distance }, 'eggs' : { 'mean' : db_forecast.eggs_mean, 'percent' : db_forecast.eggs_percent, 'distance' : db_forecast.eggs_distance }, 'milk' : { 'mean' : db_forecast.milk_mean, 'percent' : db_forecast.milk_percent, 'distance' : db_forecast.milk_distance }, 'tp' : { 'mean' : db_forecast.tp_mean, 'percent' : db_forecast.tp_percent, 'distance' : db_forecast.tp_distance } }
     form = RegistrationForm(region=region)
     return render_template('forecast.html', forecast=forecast, selections=selections, form=form)
 

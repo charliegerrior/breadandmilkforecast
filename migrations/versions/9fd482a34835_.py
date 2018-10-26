@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2b6d0a673770
+Revision ID: 9fd482a34835
 Revises: 
-Create Date: 2018-10-26 14:30:27.305527
+Create Date: 2018-10-26 15:58:16.792410
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2b6d0a673770'
+revision = '9fd482a34835'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,17 +21,17 @@ def upgrade():
     op.create_table('forecast',
     sa.Column('region', sa.String(length=5), nullable=False),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('bread_inv', sa.Integer(), nullable=True),
-    sa.Column('bread_stores', sa.Integer(), nullable=True),
+    sa.Column('bread_mean', sa.Integer(), nullable=True),
+    sa.Column('bread_percent', sa.Integer(), nullable=True),
     sa.Column('bread_distance', sa.Integer(), nullable=True),
-    sa.Column('eggs_inv', sa.Integer(), nullable=True),
-    sa.Column('eggs_stores', sa.Integer(), nullable=True),
+    sa.Column('eggs_mean', sa.Integer(), nullable=True),
+    sa.Column('eggs_percent', sa.Integer(), nullable=True),
     sa.Column('eggs_distance', sa.Integer(), nullable=True),
-    sa.Column('milk_inv', sa.Integer(), nullable=True),
-    sa.Column('milk_stores', sa.Integer(), nullable=True),
+    sa.Column('milk_mean', sa.Integer(), nullable=True),
+    sa.Column('milk_percent', sa.Integer(), nullable=True),
     sa.Column('milk_distance', sa.Integer(), nullable=True),
-    sa.Column('tp_inv', sa.Integer(), nullable=True),
-    sa.Column('tp_stores', sa.Integer(), nullable=True),
+    sa.Column('tp_mean', sa.Integer(), nullable=True),
+    sa.Column('tp_percent', sa.Integer(), nullable=True),
     sa.Column('tp_distance', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('region')
     )
