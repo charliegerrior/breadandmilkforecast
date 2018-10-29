@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+from app import db
+from app.models import Forecast
+
 staples = {'milk' : 10450115, 'eggs' : 145051970, 'bread' : 120099533, 'tp' : 549419637}
 
 def getInventory(sku, zip):
@@ -47,7 +50,32 @@ def getStats(dict):
   return item
 
 def getForecast(region):
-
   forecast = { 'region' : region, 'bread' : getStats(getInventory(staples['bread'],region)), 'eggs' : getStats(getInventory(staples['eggs'],region)), 'milk' : getStats(getInventory(staples['milk'],region)), 'tp' : getStats(getInventory(staples['tp'],region)) }
+
+  return forecast
+
+def addForecast(forecast):
+  db_forecast = Forecast(region = forecast["region"], bread_mean = forecast["bread"]["mean"], bread_percent = forecast["bread"]["percent"], bread_distance = forecast["bread"]["distance"], eggs_mean = forecast["eggs"]["mean"], eggs_percent = forecast["eggs"]["percent"], eggs_distance = forecast["eggs"]["distance"], milk_mean = forecast["milk"]["mean"], milk_percent = forecast["milk"]["percent"], milk_distance = forecast["milk"]["distance"], tp_mean = forecast["tp"]["mean"], tp_percent = forecast["tp"]["percent"], tp_distance = forecast["tp"]["distance"])
+  db.session.add(db_forecast)
+  db.session.commit()
+
+def updateForecast(db_forecast, forecast):
+  db_forecast.timestamp = datetime.utcnow()
+  db_forecast.eggs_mean = forecast["eggs"]["mean"]
+  db_forecast.eggs_percent = forecast["eggs"]["percent"]
+  db_forecast.eggs_distance = forecast["eggs"]["distance"]
+  db_forecast.bread_mean = forecast["bread"]["mean"]
+  db_forecast.bread_percent = forecast["bread"]["percent"]
+  db_forecast.bread_distance = forecast["bread"]["distance"]
+  db_forecast.milk_mean = forecast["milk"]["mean"]
+  db_forecast.milk_percent = forecast["milk"]["percent"]
+  db_forecast.milk_distance = forecast["milk"]["distance"]
+  db_forecast.tp_mean = forecast["tp"]["mean"]
+  db_forecast.tp_percent = forecast["tp"]["percent"]
+  db_forecast.tp_distance = forecast["tp"]["distance"]
+  db.session.commit()
+
+def convertForecast(db_forecast):
+  forecast = { 'region' : db_forecast.region, 'bread' : { 'mean' : db_forecast.bread_mean, 'percent' : db_forecast.bread_percent, 'distance' : db_forecast.bread_distance }, 'eggs' : { 'mean' : db_forecast.eggs_mean, 'percent' : db_forecast.eggs_percent, 'distance' : db_forecast.eggs_distance }, 'milk' : { 'mean' : db_forecast.milk_mean, 'percent' : db_forecast.milk_percent, 'distance' : db_forecast.milk_distance }, 'tp' : { 'mean' : db_forecast.tp_mean, 'percent' : db_forecast.tp_percent, 'distance' : db_forecast.tp_distance } }
 
   return forecast
