@@ -4,3 +4,4 @@ venv/
 TODO
 __pycache__/
 app.db
+logs/
