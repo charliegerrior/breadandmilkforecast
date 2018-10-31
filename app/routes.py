@@ -47,25 +47,33 @@ def forecast():
     db_forecast = Forecast.query.filter_by(region=region).first()
     if db_forecast is None:
       #run new query
-      print('no recent forecast in database')
-      # We'll wrap this in a try to catch any API
-      # errors that may occur
+      app.logger.info('No forecast for %s in database' % (region))
+      # We'll wrap this in a try to catch any errors that may occur
+      app.logger.info('Retrieving forecast for %s from Brickseek' % (region))
       try:
         forecast = getForecast(region)
       except:
-        print("ERROR!")
-      #write forecast to DB
-      addForecast(forecast)
+        app.logger.warning('Unable to retrieve forecast for %s from Brickseek' % (region))
+     #write forecast to DB
+      try:
+        addForecast(forecast)
+      except:
+        app.logger.warning('Could not write forecast to DB')
+
     elif datetime.utcnow() - db_forecast.timestamp > timedelta(seconds=1800):
+      app.logger.info('No forecasts for %s within the past 30 minutes. Retrieveing a fresh forecast from Brickseek' % (region))
       try:
         forecast = getForecast(region)
       except:
-        print("ERROR!")
+        app.logger.warning('Unable to retrieve forecast for %s from Brickseek' % (region))
       #update existing forecast
-      updateForecast(db_forecast, forecast)
+      try:
+        updateForecast(db_forecast, forecast)
+      except:
+        app.logger.warning('Could not write forecast to DB')
     else:
       #retrieve from DB
-      print('retrieving forecast from DB')
+      app.logger.info('Using forecast retrieved from DB')
       forecast = convertForecast(db_forecast)
     form = RegistrationForm(region=region)
     return render_template('forecast.html', forecast=forecast, selections=selections, form=form)
@@ -79,10 +87,21 @@ def signup():
   form = request.form
   #if form.validate_on_submit():
   user = User(name=form['name'], number=form['number'], region=form['region'])
-  db.session.add(user)
-  db.session.commit()
+  app.logger.info('Adding user %s with number %s to DB' % (user.name, user.number))
+  try:
+    db.session.add(user)
+    db.session.commit()
+    user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
+    app.logger.info('Sending welcome message to %s' % (user['number']))
+    try:
+      sendWelcome(user)
+    except:
+      app.logger.warning('Could not send message to %s' % (user['number']))
+      return render_template('error.html')
+  except:
+    app.logger.warning('Could not add user to DB')
+    return render_template('error.html')
 
-  user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
-  sendWelcome(user)
   return render_template('signup.html', user=user)
-  #return redirect(url_for('login'))
+
+
