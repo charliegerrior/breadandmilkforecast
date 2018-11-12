@@ -30,7 +30,7 @@ def about():
 # GET route to handle a new form
 @app.route("/forecast", methods=['GET'])
 def forecast():
-  matchObj = re.match(r'^[0-9]{5}$', request.args['zip_code'])
+  #matchObj = re.match(r'^[0-9]{5}$', request.args['zip_code'])
   selections = []
   if 'bread' in request.args:
     selections.append('bread')
@@ -41,7 +41,8 @@ def forecast():
   if 'tp' in request.args:
     selections.append('tp')
 
-  if matchObj and len(selections) > 0:
+  form = QueryForm(request.args)
+  if form.validate_on_submit() and len(selections) > 0:
     items = []
     region = request.args['zip_code']
     db_forecast = Forecast.query.filter_by(region=region).first()
