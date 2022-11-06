@@ -18,13 +18,13 @@
 {% block content %}
     <div class="text">
       <p>enter your zip code and make your selections below</p>
-      <form action="/results">
-        <input type="text" name="zip_code" maxlength="5" size="10" placeholder="zip code"><br>
-        <input type="checkbox" name="item1" value="bread" checked>bread
-        <input type="checkbox" name="item2" value="eggs">eggs
-        <input type="checkbox" name="item3" value="milk" checked>milk
-        <input type="checkbox" name="item4" value="toilet paper">toilet paper<br>
+      <form action="/results"> 
+        {{ form.hidden_tag() }}
+        {{ form.zip_code(size=5,placeholder="zip code") }}
+        {{ form.bread.label }} {{ form.bread }}
+        {{ form.eggs.label }} {{ form.eggs }}
+        {{ from.milk.label }} {{ form.milk }}
+        {{ form.tp.label }} {{ form.tp }}
         <input type="submit" value="submit" onclick="return IsValidForm(this.form);">
-      </form>
     </div>
 {% endblock %}

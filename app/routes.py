@@ -42,7 +42,10 @@ def forecast():
     selections.append('tp')
 
   form = QueryForm(request.args)
-  if form.validate_on_submit() and len(selections) > 0:
+  #print(form)
+  #print(form.validate_on_submit())
+  #print(form.errors)
+  if form.validate() and len(selections) > 0:
     items = []
     region = request.args['zip_code']
     db_forecast = Forecast.query.filter_by(region=region).first()
@@ -80,29 +83,32 @@ def forecast():
     return render_template('forecast.html', forecast=forecast, selections=selections, form=form)
 
   else:
+   print(form.errors)
+   #print(len(selections))
    return render_template('error.html')
 
 # POST route to handle a new sign up form
 @app.route("/signup", methods=['POST'])
 def signup():
   form = request.form
-  #if form.validate_on_submit():
-  user = User(name=form['name'], number=form['number'], region=form['region'])
-  app.logger.info('Adding user %s with number %s to DB' % (user.name, user.number))
-  try:
-    db.session.add(user)
-    db.session.commit()
-    user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
-    app.logger.info('Sending welcome message to %s' % (user['number']))
+  if form.validate_on_submit():
+    user = User(name=form['name'], number=form['number'], region=form['region'])
+    app.logger.info('Adding user %s with number %s to DB' % (user.name, user.number))
     try:
-      sendWelcome(user)
+      db.session.add(user)
+      db.session.commit()
+      user = { 'name': request.form['name'], 'number': request.form['number'], 'region': request.form['region'] }
+      app.logger.info('Sending welcome message to %s' % (user['number']))
+      try:
+        sendWelcome(user)
+      except:
+        app.logger.warning('Could not send message to %s' % (user['number']))
+        return render_template('error.html')
     except:
-      app.logger.warning('Could not send message to %s' % (user['number']))
+      app.logger.warning('Could not add user to DB')
       return render_template('error.html')
-  except:
-    app.logger.warning('Could not add user to DB')
+  else:
     return render_template('error.html')
-
   return render_template('signup.html', user=user)
 
 
